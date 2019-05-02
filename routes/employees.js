@@ -4,7 +4,7 @@ var Laptop = require('../models').Laptop
 var Sequelize = require('sequelize')
 
 
-var router = express.Router() 
+var router = express.Router()
 
 router.get('/', function(req, res, next){
     Employee.findAll({order: ['name']}).then( employees => {
@@ -34,15 +34,15 @@ router.post('/', function(req, res, next){
     } )
 })
 
-router.patch('/:id', function(req, res, next){   
+router.patch('/:id', function(req, res, next){
     Employee.update(
-        req.body, { 
+        req.body, {
             where: {
                 id: req.params.id
             }
     }).then( (rowsModified) => {
         if (!rowsModified[0]) {
-            return res.status(404).send('Not found')               
+            return res.status(404).send('Not found')
         } else {
             return res.send('Ok')
         }
@@ -55,14 +55,19 @@ router.patch('/:id', function(req, res, next){
     })
 })
 
-router.delete('/:id', function(req, res, next){ 
+router.delete('/:id', function(req, res, next){
     Employee.destroy({where: {id: req.params.id}}).then( rowsModified => {
         return res.send('ok')
     }).catch( err => next(err) )
 })
 
 
-// TODO get all laptops for employee
+//gets all laptops for employee
+router.get('/:id/laptops', function(req, res, next){
+  Laptop.findAll({where: { employeeId: req.params.id }}).then( laptops => {
+    return res.json(laptops)
+  }).catch( err => next(err) )
+})
 
-    
-module.exports = router 
+
+module.exports = router

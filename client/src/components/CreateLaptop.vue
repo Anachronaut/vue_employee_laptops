@@ -4,8 +4,9 @@
 
     <h2>Create new laptop</h2>
 
-    <!-- TODO create LaptopForm component, 
-    provide slot data to set button text  -->
+    <LaptopForm v-on:laptopFormSubmit="laptopFormSubmit">
+      Create
+    </LaptopForm>
 
 </div>
 </template>
@@ -20,8 +21,20 @@ export default {
         LaptopForm
     },
     methods:{
-        // TODO handle form submit
-        // TODO handle cancel 
+        laptopFormSubmit(laptop) {
+          this.$services.laptops.addLaptop(laptop).then( data => {
+            this.$router.push('/laptops')
+          }).catch( err => {
+            if (err.response.status == 400) {
+              alert('Error creating laptop because ' + err.response.data)
+            } else {
+              alert('Error creating laptop.')
+            }
+          })
+        },
+        cancel() {
+          this.$router.push('/laptops')
+        }
     }
 }
 
