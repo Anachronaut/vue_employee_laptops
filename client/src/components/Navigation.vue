@@ -1,14 +1,14 @@
 <template>
-  <div class="navigation">
-  
+  <div class="navigation"> <!--Navigation links at top of page-->
+
   <span class="p-2">
     <router-link to="/employees">Employee Management</router-link>
   </span>
-  
+
   <span class="p-2">
     <router-link to="/laptops">Laptop Management</router-link>
   </span>
-  
+
   </div>
 </template>
 

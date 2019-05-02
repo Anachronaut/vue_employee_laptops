@@ -14,12 +14,12 @@
         <td>{{ employee.name }}</td>
         <td>
             <router-link :to="{ name: 'employee', params: { id: employee.id } }">
-                <img src="@/assets/edit.png">
+                <img src="@/assets/edit.png"> <!--Edit icon-->
             </router-link>
         </td>
     </tr>
   </table>
-  
+
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
           employees: []
       }
   },
-  mounted() {
+  mounted() { //Returns employee db data
       this.$services.employees.getAllEmployees().then( data => {
           this.employees = data
       })

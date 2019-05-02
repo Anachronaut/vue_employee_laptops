@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import components from '@/components'
 
 
-export default new Router({
+export default new Router({ //Routes to router-link elements
     routes: [
         {
             path: '/',

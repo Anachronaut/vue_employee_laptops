@@ -6,13 +6,13 @@ var Sequelize = require('sequelize')
 
 var router = express.Router()
 
-router.get('/', function(req, res, next){
+router.get('/', function(req, res, next){ //Gets employee data from db
     Employee.findAll({order: ['name']}).then( employees => {
         return res.json(employees)
     }).catch( err => next(err) )
 })
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) { //Gets specific employee data from db
     Employee.findByPk(req.params.id).then(employee => {
         if (employee) {
             res.json(employee)
@@ -22,7 +22,7 @@ router.get('/:id', function(req, res, next) {
     }).catch( err => next(err) )
 })
 
-router.post('/', function(req, res, next){
+router.post('/', function(req, res, next){ //Creates new employee data in db
     Employee.create(req.body).then( (data) => {
         return res.send('ok')
     }).catch( err => {
@@ -34,7 +34,7 @@ router.post('/', function(req, res, next){
     } )
 })
 
-router.patch('/:id', function(req, res, next){
+router.patch('/:id', function(req, res, next){ //Updates individual employee data in db
     Employee.update(
         req.body, {
             where: {
@@ -55,7 +55,7 @@ router.patch('/:id', function(req, res, next){
     })
 })
 
-router.delete('/:id', function(req, res, next){
+router.delete('/:id', function(req, res, next){ //Deletes individual employee data in db
     Employee.destroy({where: {id: req.params.id}}).then( rowsModified => {
         return res.send('ok')
     }).catch( err => next(err) )

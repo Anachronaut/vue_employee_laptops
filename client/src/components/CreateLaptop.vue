@@ -21,7 +21,7 @@ export default {
         LaptopForm
     },
     methods:{
-        laptopFormSubmit(laptop) {
+        laptopFormSubmit(laptop) { //Submits created laptop data to db
           this.$services.laptops.addLaptop(laptop).then( data => {
             this.$router.push('/laptops')
           }).catch( err => {

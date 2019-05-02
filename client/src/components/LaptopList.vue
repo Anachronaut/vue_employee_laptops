@@ -23,12 +23,12 @@
         <td>{{ laptop.serialNumber }}</td>
         <td>
           <router-link v-if="laptop.employeeId" :to="{ name: 'employee', params: {id: laptop.employeeId } }">
-            {{ laptop.employeeId }}
+            {{ laptop.employeeId }} <!--Displays EmployeeID that currently has Laptop in table-->
           </router-link>
         </td>
         <td>
           <router-link :to="{ name: 'laptop', params: { id: laptop.id } }">
-            <img src="@/assets/edit.png">
+            <img src="@/assets/edit.png"> <!--Edit icon-->
           </router-link>
         </td>
     </tr>
@@ -46,7 +46,7 @@ export default {
           laptops: []
       }
   },
-  mounted() {
+  mounted() { //Returns laptop db to table
     this.$services.laptops.getAllLaptops().then( data => {
       this.laptops = data
     })

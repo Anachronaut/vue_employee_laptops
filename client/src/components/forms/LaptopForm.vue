@@ -4,7 +4,7 @@
 
     <div class="form-group">
         <div class="form-group">
-
+          <!--Form elements for laptop form-->
           <label for="laptopBrand">Brand</label>
           <input id="laptopBrand" class="form-control" required v-model.trim="brand">
 
@@ -48,7 +48,7 @@ export default {
         }
     },
     methods:{
-        laptopFormSubmit() {
+        laptopFormSubmit() { //Submits new laptop data
           let laptopData = { id: this.id, brand: this.brand, model: this.model, serialNumber: this.serialNumber }
 
           if (this.brand && this.model && this.serialNumber) {

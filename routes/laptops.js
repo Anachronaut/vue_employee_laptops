@@ -4,13 +4,13 @@ var Sequelize = require('sequelize')
 
 var router = express.Router()
 
-router.get('/', function(req, res, next){
+router.get('/', function(req, res, next){ //Routing to request data from db
     Laptop.findAll({order: ['serialNumber']}, {where: req.query}).then( laptops => {
         return res.json(laptops)
     }).catch( err => next(err) )
 })
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) { //Routing to request data about individual laptop from db
   Laptop.findByPk(req.params.id).then(laptop => {
     if (laptop) {
       res.json(laptop)
@@ -20,7 +20,7 @@ router.get('/:id', function(req, res, next) {
   }).catch( err => next(err) )
 })
 
-router.post('/', function(req, res, next){
+router.post('/', function(req, res, next){ //Routing that sends new laptop data to db
   Laptop.create(req.body).then( (data) => {
     return res.send('ok')
   }).catch( err => {
@@ -33,7 +33,7 @@ router.post('/', function(req, res, next){
   })
 })
 
-router.patch('/:id', function(req, res, next){
+router.patch('/:id', function(req, res, next){ //Routing for updating individual laptop data
   Laptop.update(
     req.body, {
       where: {
@@ -54,7 +54,7 @@ router.patch('/:id', function(req, res, next){
     })
 })
 
-router.patch('/:id/employee', function(req, res, next) {
+router.patch('/:id/employee', function(req, res, next) { //Routing for updating individual employee data
   Laptop.update(req.body, {where: {id: req.params.id}}).then( (rowsModified) => {
     if (rowsModified) {
       return res.send('ok')
@@ -72,7 +72,7 @@ router.patch('/:id/employee', function(req, res, next) {
   })
 })
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function(req, res, next) { //Routing for deleting individual laptop
   Laptop.destroy({where: {id: req.params.id}}).then( rowsModified => {
     return res.send('ok')
   }).catch( err => next(err) )

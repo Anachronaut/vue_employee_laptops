@@ -9,7 +9,7 @@
 
     <hr>
 
-      <h2 v-if="laptop.employeeId">This laptop is assigned to employee
+      <h2 v-if="laptop.employeeId">This laptop is assigned to employee  <!--Shows which employee laptop is assigned to, when assigned-->
         <router-link :to="{ name: 'employee', params: { id: laptop.employeeId }}">
           #{{ laptop.employeeId }}
         </router-link>
@@ -17,7 +17,7 @@
 
       <h2 v-else>This laptop is not assigned to an employee</h2>
 
-      <select v-model="selectedEmployee">
+      <select v-model="selectedEmployee"> <!--Employee select drop-down menu-->
           <option v-for="employee in employees"
           v-bind:value="employee.id"
           v-bind:key="employee.id">{{employee.id}} {{ employee.name }}
@@ -59,16 +59,16 @@ export default {
     },
     methods:{
         loadData() {
-            this.$services.laptops.getLaptop(this.id).then(data => {
+            this.$services.laptops.getLaptop(this.id).then(data => { //returns laptop data
               this.laptop = data
 
-              this.$services.employees.getAllEmployees().then(data => {
+              this.$services.employees.getAllEmployees().then(data => { //returns employee that has the laptop
                 this.employees = data
                 this.selectedEmployee = this.laptop.employeeId
               })
             })
         },
-        laptopFormSubmit(laptop) {
+        laptopFormSubmit(laptop) { //Submit updated laptop data
           this.$services.laptops.updateLaptop(laptop).then( data => {
             this.$router.push('/laptops')
           }).catch( err => {
@@ -81,16 +81,16 @@ export default {
         },
 
         updateEmployee() {
-          if (!this.selectedEmployee) {
+          if (!this.selectedEmployee) { //Validation
             alert('Select an employee')
             return
           }
-          this.$services.laptops.assignLaptop(this.laptop.id, this.selectedEmployee).then( data => {
+          this.$services.laptops.assignLaptop(this.laptop.id, this.selectedEmployee).then( data => { //Assigns laptop to employee
             this.loadData()
           })
         },
 
-        unassign() {
+        unassign() { //Unassigns laptop from employee
           this.$services.laptops.assignLaptop(this.laptop.id, null).then( data => {
             this.loadData()
           })
